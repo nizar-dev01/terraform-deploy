@@ -13,4 +13,3 @@ output "public_subnet_two" {
 output "vpc_id" {
   value = aws_vpc.main.id
 }
-
