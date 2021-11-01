@@ -1,3 +1,4 @@
+# TF Configuration
 terraform {
   backend "s3" {
     bucket = "terraform-app-depl"
@@ -5,24 +6,30 @@ terraform {
     key    = "deployment/terraform.tfstate"
   }
 }
+
+# Define Provider
 provider "aws" {
   region = "us-east-1"
 }
 
+# Locals
 locals {
   environment = terraform.workspace == "default" ? "staging" : terraform.workspace
 }
 
+# VPC Module
 module "infra_vpc" {
   source  = "./modules/vpc"
   app_env = local.environment
 }
 
+# Security Groups Module
 module "security_groups" {
   source = "./modules/security_groups"
   vpc_id = module.infra_vpc.vpc_id
 }
 
+# EC2 Instances Module
 module "ec2_app" {
   source = "./modules/ec2"
 
@@ -34,12 +41,15 @@ module "ec2_app" {
   app_env               = local.environment
 }
 
+# Output important data from the build
 output "server-1-id" {
   value = module.ec2_app.server-1-id
 }
+
 output "server-2-id" {
   value = module.ec2_app.server-2-id
 }
+
 output "load-balancer-dns" {
   value = module.ec2_app.load-balancer-dns
 }

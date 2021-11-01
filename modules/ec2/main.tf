@@ -2,6 +2,7 @@
 data "template_file" "user_data" {
   template = file("modules/ec2/init.sh")
 }
+
 # Create Ubuntu server and configure nginx
 resource "aws_instance" "application-server-1" {
   ami               = var.instance_ami
@@ -23,6 +24,7 @@ resource "aws_instance" "application-server-1" {
     Name = "web-server-1-${var.app_env}"
   }
 }
+
 resource "aws_instance" "application-server-2" {
   ami               = var.instance_ami
   instance_type     = var.instance_type
@@ -95,6 +97,7 @@ resource "aws_lb_target_group_attachment" "attach-1" {
   target_id        = aws_instance.application-server-1.id
   port             = 80
 }
+
 resource "aws_lb_target_group_attachment" "attach-2" {
   target_group_arn = aws_lb_target_group.target-group.arn
   target_id        = aws_instance.application-server-2.id
