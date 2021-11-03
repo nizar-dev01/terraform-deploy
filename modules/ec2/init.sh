@@ -16,4 +16,3 @@ cp /home/ubuntu/baby-django/emperor.uwsgi.service /etc/systemd/system
 systemctl enable emperor.uwsgi.service
 systemctl start emperor.uwsgi.service
 service nginx restart
-exit 0
