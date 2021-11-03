@@ -16,9 +16,11 @@ workflows:
       - terraform/plan:
           checkout: true
           context: terraform
+          workspace: staging
           persist-workspace: true
           requires:
             - terraform/validate
+      # You can create a seperate branch for each workspaces and select them accordingly
       - terraform/apply:
           attach-workspace: true
           context: terraform
