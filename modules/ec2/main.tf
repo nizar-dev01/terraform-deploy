@@ -4,7 +4,7 @@ data "template_file" "user_data" {
 }
 
 # Create Ubuntu server and configure nginx
-resource "aws_instance" "application-server-1" {
+resource "aws_instance" "application-server-01" {
   ami               = var.instance_ami
   instance_type     = var.instance_type
   availability_zone = var.availability_zone
@@ -25,7 +25,7 @@ resource "aws_instance" "application-server-1" {
   }
 }
 
-resource "aws_instance" "application-server-2" {
+resource "aws_instance" "application-server-02" {
   ami               = var.instance_ami
   instance_type     = var.instance_type
   availability_zone = var.availability_zone
